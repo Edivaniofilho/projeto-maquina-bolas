@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aluguel de Máquina de Bolas</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+
+        <h1>🎾 Aluguel de Máquina de Bolas</h1>
+
+        <p>Treine mais. Evolua mais.</p>
+
+    </header>
+
+
+    <main>
+
+        <section class="reserva">
+
+            <h2>Faça sua reserva</h2>
+
+
+            <!-- NOME -->
+
+            <label for="nome">Nome</label>
+
+            <input
+                type="text"
+                id="nome"
+                placeholder="Digite seu nome"
+            >
+
+
+            <!-- WHATSAPP -->
+
+            <label for="whatsapp">WhatsApp</label>
+
+            <input
+                type="tel"
+                id="whatsapp"
+                placeholder="(79) 99999-9999"
+            >
+
+
+            <!-- LOCAL -->
+
+            <label for="local">Local da entrega</label>
+
+            <select id="local">
+
+                <option value="">
+                    Selecione o local
+                </option>
+
+                <option value="Federação Sergipana de Tênis">
+                    Federação Sergipana de Tênis
+                </option>
+
+                <option value="Quadra do Parque da Sementeira">
+                    Quadra do Parque da Sementeira
+                </option>
+
+                <option value="Quadra dos Cajueiros">
+                    Quadra dos Cajueiros
+                </option>
+
+                <option value="Outro local">
+                    Outro local
+                </option>
+
+            </select>
+
+
+            <!-- DATA -->
+
+            <label for="data">Data</label>
+
+            <input
+                type="date"
+                id="data"
+            >
+
+
+            <!-- DISPONIBILIDADE -->
+
+            <div
+                id="disponibilidade"
+                class="disponibilidade"
+            >
+
+                <h3>Disponibilidade</h3>
+
+                <p>
+                    Selecione uma data e um local
+                    para visualizar os horários.
+                </p>
+
+                <div id="horariosDisponiveis"></div>
+
+            </div>
+
+
+            <!-- HORÁRIO -->
+
+            <label for="horario">Horário</label>
+
+            <input
+                type="time"
+                id="horario"
+            >
+
+
+            <!-- DURAÇÃO -->
+
+            <label for="duracao">Duração</label>
+
+            <select id="duracao">
+
+                <option value="">
+                    Selecione a duração
+                </option>
+
+                <option value="1">
+                    1 hora - R$ 50,00
+                </option>
+
+                <option value="2">
+                    2 horas - R$ 80,00
+                </option>
+
+                <option value="7">
+                    Turno completo (7 horas) - R$ 120,00
+                </option>
+
+            </select>
+
+
+            <!-- VALOR -->
+
+            <div class="valor">
+
+                <span>
+                    Valor da reserva:
+                </span>
+
+                <strong id="valor">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+
+            <!-- BOTÃO -->
+
+            <button id="btnReservar">
+                Solicitar reserva
+            </button>
+
+
+            <!-- RESUMO -->
+
+            <div
+                id="resumo"
+                class="resumo"
+            ></div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
