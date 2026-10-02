@@ -1,28 +1,44 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
+
 const db = require("./database");
 
 const app = express();
 
-const PORT = 3000;
+// ========================================
+// CONFIGURAÇÕES
+// ========================================
+
+const PORT = process.env.PORT || 3000;
+
+// ========================================
+// MIDDLEWARES
+// ========================================
+
 app.use(cors());
-
-
-// PERMITIR JSON
 
 app.use(express.json());
 
+// ========================================
+// SERVIR O FRONTEND
+// ========================================
 
+app.use(express.static(path.join(__dirname, "..")));
+
+// ========================================
 // ROTA PRINCIPAL
+// ========================================
 
 app.get("/", function (req, res) {
-
-    res.send("Servidor da Máquina de Bolas funcionando!");
-
+    res.sendFile(
+        path.join(__dirname, "..", "index.html")
+    );
 });
 
-
+// ========================================
 // LISTAR RESERVAS
+// ========================================
 
 app.get("/reservas", function (req, res) {
 
@@ -34,8 +50,9 @@ app.get("/reservas", function (req, res) {
 
 });
 
-
+// ========================================
 // CRIAR RESERVA
+// ========================================
 
 app.post("/reservas", function (req, res) {
 
@@ -49,9 +66,20 @@ app.post("/reservas", function (req, res) {
         preco
     } = req.body;
 
+    try {
 
-    const resultado = db.prepare(`
-        INSERT INTO reservas (
+        const resultado = db.prepare(`
+            INSERT INTO reservas (
+                nome,
+                whatsapp,
+                local,
+                data,
+                horario,
+                duracao,
+                preco
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        `).run(
             nome,
             whatsapp,
             local,
@@ -59,32 +87,37 @@ app.post("/reservas", function (req, res) {
             horario,
             duracao,
             preco
-        )
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    `).run(
-        nome,
-        whatsapp,
-        local,
-        data,
-        horario,
-        duracao,
-        preco
-    );
+        );
 
+        res.json({
+            mensagem: "Reserva criada com sucesso!",
+            id: resultado.lastInsertRowid
+        });
 
-    res.json({
-        mensagem: "Reserva criada com sucesso!",
-        id: resultado.lastInsertRowid
-    });
+    } catch (erro) {
+
+        console.error("Erro ao criar reserva:", erro);
+
+        res.status(500).json({
+            erro: "Não foi possível criar a reserva."
+        });
+
+    }
 
 });
 
-
+// ========================================
 // INICIAR SERVIDOR
+// ========================================
 
-app.listen(PORT, function () {
+app.listen(
+    PORT,
+    "0.0.0.0",
+    function () {
 
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
+        console.log(
+            `Servidor rodando na porta ${PORT}`
+        );
 
-});
-
+    }
+);

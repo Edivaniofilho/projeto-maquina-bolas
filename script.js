@@ -524,7 +524,7 @@ botao.addEventListener(
 // SALVAR RESERVA NO BANCO
 // ========================================
 
-fetch("http://localhost:3000/reservas", {
+fetch("/reservas", {
     method: "POST",
 
     headers: {
